@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0f14">
+  <title>CS2 Coach</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">C2</div>
+        <div><strong>CS2 Coach</strong><span>Personal Analyzer</span></div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-btn active" data-page="dashboard">⌂ <span>Огляд</span></button>
+        <button class="nav-btn" data-page="analysis">◎ <span>Аналіз</span></button>
+        <button class="nav-btn" data-page="training">⚡ <span>Тренування</span></button>
+        <button class="nav-btn" data-page="progress">↗ <span>Прогрес</span></button>
+        <button class="nav-btn" data-page="profile">● <span>Профіль</span></button>
+      </nav>
+
+      <div class="sidebar-card">
+        <span class="eyebrow">NEXT STEP</span>
+        <b>Підключення Steam</b>
+        <p>Архітектура вже готова до підключення реальної статистики.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">CS2 PERFORMANCE HUB</p>
+          <h1 id="pageTitle">Огляд гравця</h1>
+        </div>
+        <div class="top-actions">
+          <span class="status-dot"></span>
+          <span>Система онлайн</span>
+          <button class="avatar">FC</button>
+        </div>
+      </header>
+
+      <section class="page active" id="dashboard">
+        <div class="hero">
+          <div>
+            <span class="eyebrow">AI PERFORMANCE SCORE</span>
+            <h2>Грай розумніше.<br>Рости швидше.</h2>
+            <p>Аналіз матчів, сильних і слабких сторін та персональний план тренувань в одному місці.</p>
+            <button class="primary" data-jump="analysis">Почати аналіз →</button>
+          </div>
+          <div class="score-ring">
+            <div><strong>82</strong><span>COACH SCORE</span></div>
+          </div>
+        </div>
+
+        <div class="stats-grid" id="statsGrid"></div>
+
+        <div class="two-col">
+          <article class="panel">
+            <div class="panel-head"><div><span class="eyebrow">RECENT FORM</span><h3>Останні матчі</h3></div><span class="chip">DEMO</span></div>
+            <div id="recentMatches"></div>
+          </article>
+          <article class="panel">
+            <div class="panel-head"><div><span class="eyebrow">COACH FOCUS</span><h3>Що покращити</h3></div></div>
+            <div id="focusList"></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="page" id="analysis">
+        <article class="panel wide">
+          <span class="eyebrow">PLAYER ANALYSIS</span>
+          <h2>Швидкий аналіз</h2>
+          <p class="muted">Поки працює на введених показниках. Пізніше підключимо автоматичне отримання статистики.</p>
+          <form id="analyzeForm" class="form-grid">
+            <label>Нікнейм<input name="nickname" value="FoxCaser"></label>
+            <label>K/D<input name="kd" type="number" step="0.01" value="1.04"></label>
+            <label>Headshot %<input name="hs" type="number" step="1" value="48"></label>
+            <label>ADR<input name="adr" type="number" step="0.1" value="79.6"></label>
+            <button class="primary" type="submit">Проаналізувати</button>
+          </form>
+          <div id="analysisResult" class="result-box hidden"></div>
+        </article>
+      </section>
+
+      <section class="page" id="training">
+        <article class="panel wide">
+          <span class="eyebrow">TRAINING PLAN</span>
+          <h2>План тренувань</h2>
+          <div id="trainingPlan" class="training-grid"></div>
+        </article>
+      </section>
+
+      <section class="page" id="progress">
+        <article class="panel wide">
+          <span class="eyebrow">PROGRESS</span>
+          <h2>Твій прогрес</h2>
+          <div class="empty-state">
+            <div class="empty-icon">↗</div>
+            <h3>Історія вже закладена в структуру</h3>
+            <p>Коли підключимо базу та реальні матчі, тут автоматично з'являться графіки K/D, ADR, win rate та Coach Score.</p>
+          </div>
+        </article>
+      </section>
+
+      <section class="page" id="profile">
+        <article class="panel wide">
+          <span class="eyebrow">PROFILE</span>
+          <h2>Профіль</h2>
+          <div class="profile-card">
+            <div class="profile-avatar">FC</div>
+            <div><h3>FoxCaser</h3><p class="muted">Steam буде підключено на наступному етапі.</p></div>
+            <button class="secondary" disabled>Підключити Steam</button>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
