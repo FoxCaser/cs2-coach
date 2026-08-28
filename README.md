@@ -1,16 +1,24 @@
 # CS2 Coach
 
-Спрощена стартова структура без вкладених папок — зручно завантажувати прямо через GitHub.
+Version 1.1 adds Steam OpenID sign-in.
 
-## Уже є
-- адаптивний інтерфейс;
-- Dashboard;
-- швидкий аналіз K/D, HS%, ADR;
-- план тренувань;
-- Прогрес і Профіль;
-- Node.js + Express API;
-- готовність до Render.
+## Current features
+- responsive UI;
+- dashboard;
+- quick K/D, HS%, ADR analyzer;
+- training plan;
+- Steam login/profile session;
+- SteamID64, nickname, avatar and profile link;
+- Render-ready Node.js + Express app.
 
-## Запуск
+## Required Render environment variables
+- `STEAM_API_KEY` — Steam Web API key.
+- `SESSION_SECRET` — long random value used to sign sessions.
+
+Render supplies `RENDER_EXTERNAL_URL`, so the Steam callback URL is built automatically.
+
+## Local run
+```bash
 npm install
 npm start
+```

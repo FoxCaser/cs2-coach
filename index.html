@@ -12,7 +12,10 @@
     <aside class="sidebar">
       <div class="brand">
         <div class="brand-mark">C2</div>
-        <div><strong>CS2 Coach</strong><span>Personal Analyzer</span></div>
+        <div>
+          <strong>CS2 Coach</strong>
+          <span>Personal Analyzer</span>
+        </div>
       </div>
 
       <nav class="nav">
@@ -24,9 +27,9 @@
       </nav>
 
       <div class="sidebar-card">
-        <span class="eyebrow">NEXT STEP</span>
-        <b>Підключення Steam</b>
-        <p>Архітектура готова до підключення реальної статистики.</p>
+        <span class="eyebrow">STEAM CONNECTION</span>
+        <b id="sideSteamTitle">Перевіряємо...</b>
+        <p id="sideSteamText">Завантажуємо стан профілю.</p>
       </div>
     </aside>
 
@@ -36,10 +39,11 @@
           <p class="eyebrow">CS2 PERFORMANCE HUB</p>
           <h1 id="pageTitle">Огляд гравця</h1>
         </div>
+
         <div class="top-actions">
           <span class="status-dot"></span>
-          <span>Система онлайн</span>
-          <button class="avatar">FC</button>
+          <span id="topSteamState">Система онлайн</span>
+          <button class="avatar" id="topAvatar" data-jump="profile">FC</button>
         </div>
       </header>
 
@@ -48,11 +52,18 @@
           <div>
             <span class="eyebrow">AI PERFORMANCE SCORE</span>
             <h2>Грай розумніше.<br>Рости швидше.</h2>
-            <p>Аналіз матчів, сильних і слабких сторін та персональний план тренувань в одному місці.</p>
+            <p>
+              Аналіз матчів, сильних і слабких сторін та персональний план
+              тренувань в одному місці.
+            </p>
             <button class="primary" data-jump="analysis">Почати аналіз →</button>
           </div>
+
           <div class="score-ring">
-            <div><strong>82</strong><span>COACH SCORE</span></div>
+            <div>
+              <strong>82</strong>
+              <span>COACH SCORE</span>
+            </div>
           </div>
         </div>
 
@@ -60,11 +71,23 @@
 
         <div class="two-col">
           <article class="panel">
-            <div class="panel-head"><div><span class="eyebrow">RECENT FORM</span><h3>Останні матчі</h3></div><span class="chip">DEMO</span></div>
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">RECENT FORM</span>
+                <h3>Останні матчі</h3>
+              </div>
+              <span class="chip">DEMO</span>
+            </div>
             <div id="recentMatches"></div>
           </article>
+
           <article class="panel">
-            <div class="panel-head"><div><span class="eyebrow">COACH FOCUS</span><h3>Що покращити</h3></div></div>
+            <div class="panel-head">
+              <div>
+                <span class="eyebrow">COACH FOCUS</span>
+                <h3>Що покращити</h3>
+              </div>
+            </div>
             <div id="focusList"></div>
           </article>
         </div>
@@ -74,14 +97,19 @@
         <article class="panel wide">
           <span class="eyebrow">PLAYER ANALYSIS</span>
           <h2>Швидкий аналіз</h2>
-          <p class="muted">Поки працює на введених показниках. Пізніше підключимо автоматичне отримання статистики.</p>
+          <p class="muted">
+            Поки працює на введених показниках. Після підключення джерела
+            матчів аналіз буде заповнюватися автоматично.
+          </p>
+
           <form id="analyzeForm" class="form-grid">
-            <label>Нікнейм<input name="nickname" value="FoxCaser"></label>
+            <label>Нікнейм<input name="nickname" id="nicknameInput" value="FoxCaser"></label>
             <label>K/D<input name="kd" type="number" step="0.01" value="1.04"></label>
             <label>Headshot %<input name="hs" type="number" step="1" value="48"></label>
             <label>ADR<input name="adr" type="number" step="0.1" value="79.6"></label>
             <button class="primary" type="submit">Проаналізувати</button>
           </form>
+
           <div id="analysisResult" class="result-box hidden"></div>
         </article>
       </section>
@@ -100,8 +128,11 @@
           <h2>Твій прогрес</h2>
           <div class="empty-state">
             <div class="empty-icon">↗</div>
-            <h3>Історія вже закладена в структуру</h3>
-            <p>Коли підключимо базу та реальні матчі, тут автоматично з'являться графіки K/D, ADR, win rate та Coach Score.</p>
+            <h3>Структура прогресу готова</h3>
+            <p>
+              Коли підключимо джерело реальних матчів і базу даних, тут
+              автоматично з'являться графіки K/D, ADR, win rate та Coach Score.
+            </p>
           </div>
         </article>
       </section>
@@ -110,15 +141,56 @@
         <article class="panel wide">
           <span class="eyebrow">PROFILE</span>
           <h2>Профіль</h2>
-          <div class="profile-card">
-            <div class="profile-avatar">FC</div>
-            <div><h3>FoxCaser</h3><p class="muted">Steam буде підключено на наступному етапі.</p></div>
-            <button class="secondary" disabled>Підключити Steam</button>
+
+          <div id="steamMessage" class="notice hidden"></div>
+
+          <div class="profile-card" id="loggedOutProfile">
+            <div class="profile-avatar steam-logo">S</div>
+            <div class="profile-copy">
+              <h3>Підключи свій Steam</h3>
+              <p class="muted">
+                Увійди через офіційну сторінку Steam. Пароль Steam наш сайт
+                не отримує.
+              </p>
+            </div>
+            <a class="primary button-link" href="/auth/steam">Увійти через Steam</a>
+          </div>
+
+          <div class="profile-card hidden" id="loggedInProfile">
+            <img class="profile-avatar-img" id="steamAvatar" alt="Steam avatar">
+            <div class="profile-copy">
+              <span class="connected-badge">● STEAM CONNECTED</span>
+              <h3 id="steamName">Steam Player</h3>
+              <p class="muted mono" id="steamId"></p>
+              <a id="steamProfileLink" class="text-link" href="#" target="_blank" rel="noopener noreferrer">
+                Відкрити профіль Steam ↗
+              </a>
+            </div>
+            <button class="secondary" id="logoutBtn">Вийти</button>
+          </div>
+
+          <div class="profile-info-grid">
+            <div class="info-card">
+              <span>ЕТАП 1</span>
+              <b>Steam login</b>
+              <p>Ідентифікація профілю та SteamID.</p>
+            </div>
+            <div class="info-card">
+              <span>ЕТАП 2</span>
+              <b>Match data</b>
+              <p>Підключимо джерело статистики та історію матчів.</p>
+            </div>
+            <div class="info-card">
+              <span>ЕТАП 3</span>
+              <b>AI Coach</b>
+              <p>Рекомендації з реальних даних гравця.</p>
+            </div>
           </div>
         </article>
       </section>
     </main>
   </div>
+
   <script src="/app.js"></script>
 </body>
 </html>
